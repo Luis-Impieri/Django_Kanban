@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kanban Pessoal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        
+        :root {
+            --cor-primaria: #6c5ce7;
+            --cor-secundaria: #a8a4e6;
+            --cor-fundo: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            --sombra: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            background-image: var(--cor-fundo);
+            min-height: 100vh;
+            margin: 0;
+            padding: 2rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        
+        .titulo-principal {
+            text-align: center;
+            color: var(--cor-primaria);
+            margin-bottom: 3rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        
+        .kanban-board {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        
+        .coluna {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--sombra);
+            transition: transform 0.2s;
+        }
+
+        .coluna:hover {
+            transform: translateY(-5px);
+        }
+
+        .cabecalho-coluna {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--cor-secundaria);
+        }
+
+        .icone-coluna {
+            width: 30px;
+            height: 30px;
+            background: var(--cor-primaria);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        
+        .card-tarefa {
+            background: white;
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--cor-primaria);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            cursor: move;
+            transition: all 0.2s;
+        }
+
+        .card-tarefa:hover {
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            background: #f8f9fa;
+        }
+
+        
+        @media (max-width: 768px) {
+            .kanban-board {
+                grid-template-columns: 1fr;
+            }
+            
+            body {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="titulo-principal">📋Kanban de Tarefas Pessoais</h1>
+        
+        <div class="kanban-board">
+            
+            <div class="coluna">
+                <div class="cabecalho-coluna">
+                    <div class="icone-coluna">📌</div>
+                    <h2>To-Do</h2>
+                </div>
+                {% for task in todo_tasks %}
+                <div class="card-tarefa">
+                    {{ task.title }}
+                </div>
+                {% endfor %}
+            </div>
+
+            
+            <div class="coluna">
+                <div class="cabecalho-coluna">
+                    <div class="icone-coluna">✅</div>
+                    <h2>Done</h2>
+                </div>
+                {% for task in done_tasks %}
+                <div class="card-tarefa">
+                    {{ task.title }}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
